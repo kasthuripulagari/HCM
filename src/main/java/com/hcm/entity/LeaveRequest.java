@@ -1,17 +1,39 @@
 package com.hcm.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name="LeaveRequest")
 public class LeaveRequest {
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="Id")
 	private long id;
+	
+	@Column(name="EmployeeId")
 	private long employeeId;
+	
+	@Column(name="LeaveType")
 	private long leaveTypeId;
+	
+	@Column(name="FromDate")
 	private String fromDate;
+	
+	@Column(name="ToDate")
 	private String toDate;
+	
+	@Column(name="Reason")
 	private String reason;
+	
 //	private String document;
+	
+	@Column(name="Status")
 	private String status;
 
 	public long getId() {

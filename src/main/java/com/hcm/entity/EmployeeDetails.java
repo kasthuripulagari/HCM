@@ -1,18 +1,57 @@
 package com.hcm.entity;
 
+
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name="EmployeeDetails")
 public class EmployeeDetails {
 
+	@Id
+	@Column(name="id")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
+	
+	@Column(name="FirstName")
 	private String firstName;
+	
+	@Column(name="LastName")
 	private String lastName;
+	
+	@Column(name="RoleId")
 	private String role_id;
+	
+	@Column(name="Email")
 	private String email;
+	
+	@Column(name="Password")
 	private String password;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="LeaveId", referencedColumnName="id" )
+	private EmployeeLeaves leaves;
+	
+	@OneToMany(cascade=CascadeType.PERSIST)
+	@JoinColumn(name="LeaveRequestId", referencedColumnName="id")
+	private LeaveRequest requests;
+	
+	@Column(name="CreatedAt")
 	private String createdAt;
+	
+	@Column(name="UpdatedAt")
 	private String updatedAt;
+	
+	@Column(name="LastUpdatedBy")
 	private String lastupdatedBy;
 
 	public long getId() {
@@ -63,6 +102,22 @@ public class EmployeeDetails {
 		this.password = password;
 	}
 
+	public EmployeeLeaves getLeaves() {
+		return leaves;
+	}
+
+	public void setLeaves(EmployeeLeaves leaves) {
+		this.leaves = leaves;
+	}
+
+	public LeaveRequest getRequests() {
+		return requests;
+	}
+
+	public void setRequests(LeaveRequest requests) {
+		this.requests = requests;
+	}
+
 	public String getCreatedAt() {
 		return createdAt;
 	}
@@ -87,4 +142,11 @@ public class EmployeeDetails {
 		this.lastupdatedBy = lastupdatedBy;
 	}
 
+	@Override
+	public String toString() {
+		
+		return "EmployeeDetails" +id+" "+firstName+" "+lastName+" "+role_id;
+	}
+
+	
 }
